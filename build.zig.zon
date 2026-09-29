@@ -1,0 +1,17 @@
+.{
+    .name = .kerf,
+    .version = "0.0.0",
+    .fingerprint = 0x3aa779cc9e056e96,
+    .minimum_zig_version = "0.16.0",
+    .dependencies = .{
+        .bitdp = .{
+            .url = "git+https://github.com/endlessconflict/bitdp#0af24994faa14728118a5aa133489bb14062f3c0",
+            .hash = "bitdp-0.0.0-0YrfWAnwAQAIbosP_lob3FPgM4LiGm12m61bZ5U7qTbj",
+        },
+        .nucleo = .{
+            .url = "git+https://github.com/endlessconflict/nucleo#87c5be08833e70f166d45e7f695faff3fef3b8b2",
+            .hash = "nucleo-0.0.0-3iOuk9ZBAAA0SobrOUVsY2bjbDMuIlxHIxGMHJuJAgC2",
+        },
+    },
+    .paths = .{ "build.zig", "build.zig.zon", "src", "bench", "README.md", "REFERENCES.md" },
+}
