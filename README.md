@@ -51,3 +51,7 @@ zig build demo -Doptimize=ReleaseFast
 ## References
 
 See [REFERENCES.md](REFERENCES.md).
+
+## License
+
+GNU AGPL-3.0 (see `LICENSE`), copyright endlessconflict. A commercial license without the AGPL's network-copyleft terms is available on request; open an issue to ask.
