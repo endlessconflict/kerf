@@ -1,7 +1,10 @@
 //! Off-targets of random guides on the reference and on a haplotype, and the
 //! sites the haplotype gains or loses.
 //!
-//! usage: kerf-demo REF.fa HAP.vcf GUIDES K SEED
+//! usage: kerf-demo REF.fa HAP.vcf GUIDES K SEED [dump]
+//!
+//! With "dump", the guides and every reference hit are printed to stderr
+//! (`G index guide+PAM`, `S guide strand pos cost`), for cross-checks.
 //!
 //! HAP.vcf lists the variants of one haplotype (CHROM POS ID REF ALT, sorted,
 //! biallelic). Guides are random 20-mers of the reference followed by NGG.
@@ -93,6 +96,12 @@ pub fn main(init: std.process.Init) !void {
 
     var ref_sites: std.ArrayList(kerf.Site) = .empty;
     var alt_sites: std.ArrayList(kerf.Site) = .empty;
+    if (args.len > 6) {
+        for (guides, 0..) |g, i| std.debug.print("G {d} {s}\n", .{ i, g });
+        try kerf.scan(gpa, ref_hap, guides, k, &ref_sites);
+        for (ref_sites.items) |x| std.debug.print("S {d} {s} {d} {d}\n", .{ x.guide, @tagName(x.strand), x.ref_pos, x.cost });
+        return;
+    }
     const t0 = now(io);
     try kerf.scan(gpa, ref_hap, guides, k, &ref_sites);
     const t1 = now(io);

@@ -21,6 +21,17 @@ Chromosome 22 (GRCh38) and one 1000 Genomes high-coverage sample (HG00096), one 
 
 A site counts as gained when the haplotype has one and the reference has none for that guide within 8 bases, and as lost in the opposite case. About one site in 260 changes, in each direction. Of the gained sites, 118 and 148 score below K, which means a variant made them strictly better matches. Costs at exactly K also flip in and out of the limit. The random guides here are not a curated panel, so read the counts as a scale, not as a result about any guide.
 
+## Against Cas-OFFinder
+
+Cas-OFFinder 2.4.1 (Bae et al. 2014), run through pocl on the same machine's 16 hardware threads, searches mismatches only. On chromosome 22 with random guides, K = 4 and the reference sequence:
+
+| Guides | Cas-OFFinder sites (mismatches only) | kerf hits (mismatches and bulges) | Cas-OFFinder sites missing from kerf | Cas-OFFinder wall time | kerf wall time, one thread |
+|---|---|---|---|---|---|
+| 8 | 97 | 1 042 | 0 | 3.0 s | 2.3 s |
+| 96 | 168 994 | 369 092 | 0 | 3.7 s | 15.0 s |
+
+Every site Cas-OFFinder reports is among kerf's hits, at the same position. kerf reports more because bulges count and because one site can yield hits at neighbouring end positions. On this workload Cas-OFFinder is about four times faster at 96 guides, while using sixteen threads against kerf's one, and it cannot see bulges. The scan in kerf splits by text region without changes, but that is not implemented.
+
 ## Limits
 
 - The PAM is NGG. Other PAMs and the guide-start rules of other nucleases are not there yet.
